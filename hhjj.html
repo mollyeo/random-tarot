@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarot Card</title>
+</head>
+  <style>
+    body {
+      font-family: 'Y 클로버 TTF', sans-serif;
+      text-align: center;
+      padding: 60px;
+      color: #448a9d;
+      background-image: url('https://i.pinimg.com/564x/67/10/b6/6710b6928ab7a85d1a3b8b316e057c7e.jpg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center center;
+    }
+
+    h1 {
+      font-size: 36px;
+      color: #e328b1;
+    }
+
+    img {
+      max-width: 20%;
+      height: auto;
+      margin: 25px;
+      margin-bottom: 25px;
+    }
+
+    button {
+      display: inline-block;
+      padding: 20px 40px;
+      font-size: 16px;
+      cursor: pointer;
+      font-family: 'Y 클로버 TTF', sans-serif;
+      color: #096fbd;
+      background-color: #fab7d0;
+      border: none;
+      border-radius: 5px;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #e0268f;
+    }
+
+    #cardImages {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+
+    .card {
+    text-align: center;
+    margin: 10px;
+}
+
+    .cardName {
+      font-family: 'Y 클로버 TTF',sans-serif;
+      font-size: 20px;
+      color: #000000;
+      margin-top: 2px;
+      margin-bottom: 2px;
+      margin-top: 25px;
+    
+    }
+    
+    .triangle-card {
+      position: relative;
+      width: 20;
+      height: 20;
+      border-left: 100px solid transparent;
+      border-right: 100px solid transparent;
+      border-bottom: 173.21px solid #0c89dc; /* 또는 원하는 배경색을 지정하세요 */
+      display: inline-block;
+      margin: 20px;
+    }
+
+    .image-container {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      overflow: hidden;
+      border-radius: 10px; /* 이미지를 감싸는 컨테이너의 모서리를 둥글게 만들기 위해 */
+    }
+
+    .image-container img {
+      width: 110%;
+      height: 110%;
+      object-fit: cover;
+    }
+
+  </style>
+
+<body>
+  <h1>Tarot Card Random Draw</h1>
+  <button onclick="drawCards()">3개의 카드 뽑기</button>
+  <div id="cardImages" class="card-container"></div>
+  
+  <style>
+    footer {
+        font-size: 10px; /* 텍스트 크기 조절 */
+        padding: 20px; /* 푸터 주위의 여백 조절 */
+        color: #86afc6;
+    }
+</style>
+
+<footer>
+    <p>© Moll TAROT</p>
+</footer>
+
+  <script>
+    const numCardsToDraw = 3;
+    const cardsData = [
+      { name: '완드기사', imagePath: '1.jpg' },
+      { name: '컵기사', imagePath: '2.jpg' },
+      { name: '펜타클 기사', imagePath: '3.jpg' },
+      { name: '여사제', imagePath: '4.jpg' },
+      { name: '소드 퀸', imagePath: '5.jpg' },
+      { name: '완드 킹', imagePath: '6.jpg' },
+      { name: '컵 퀸', imagePath: '7.jpg' },
+      { name: '펜타클 퀸', imagePath: '8.jpg' },
+      { name: '여황제', imagePath: '9.jpg' },
+      { name: '소드 킹', imagePath: '10.jpg' },
+      { name: '완드 퀸', imagePath: '11.jpg' },
+      { name: '컵 킹', imagePath: '12.jpg' },
+      { name: '펜타클 킹', imagePath: '13.jpg' },
+      { name: '황제', imagePath: '14.jpg' },
+      { name: '교황', imagePath: '15.jpg' },
+      { name: '연인', imagePath: '16.jpg' },
+      { name: '전차', imagePath: '17.jpg' },
+      { name: '힘', imagePath: '18.jpg' },
+      { name: '은둔자', imagePath: '19.jpg' },
+      { name: '운명의 수레바퀴', imagePath: '20.jpg' },
+      { name: '정의', imagePath: '21.jpg' },
+      { name: '매달린 사람', imagePath: '22.jpg' },
+      { name: '죽음', imagePath: '23.jpg' },
+      { name: '절제', imagePath: '24.jpg' },
+      { name: '악마', imagePath: '25.jpg' },
+      { name: '탑', imagePath: '26.jpg' },
+      { name: '별', imagePath: '27.jpg' },
+      { name: '달', imagePath: '28.jpg' },
+      { name: '태양', imagePath: '29.jpg' },
+      { name: '심판', imagePath: '30.jpg' },
+      { name: '세계', imagePath: '31.jpg' },
+      { name: '에이스 소드', imagePath: '32.jpg' },
+      { name: '소드 2', imagePath: '33.jpg' },
+      { name: '소드 3', imagePath: '34.jpg' },
+      { name: '소드 4', imagePath: '35.jpg' },
+      { name: '소드 5', imagePath: '36.jpg' },
+      { name: '소드 6', imagePath: '37.jpg' },
+      { name: '소드 7', imagePath: '38.jpg' },
+      { name: '소드 8', imagePath: '39.jpg' },
+      { name: '소드 9', imagePath: '40.jpg' },
+      { name: '소드 10', imagePath: '41.jpg' },
+      { name: '완드 에이스', imagePath: '42.jpg' },
+      { name: '완드 2', imagePath: '43.jpg' },
+      { name: '완드 3', imagePath: '44.jpg' },
+      { name: '완드 4', imagePath: '45.jpg' },  
+      { name: '완드 5', imagePath: '46.jpg' },
+      { name: '완드 6', imagePath: '47.jpg' },
+      { name: '완드 7', imagePath: '48.jpg' },
+      { name: '완드 8', imagePath: '49.jpg' },
+      { name: '완드 9', imagePath: '50.jpg' },
+      { name: '완드 10', imagePath: '51.jpg' },
+      { name: '에이스 컵', imagePath: '52.jpg' },
+      { name: '컵 2', imagePath: '53.jpg' },
+      { name: '컵 3', imagePath: '54.jpg' },
+      { name: '컵 4', imagePath: '55.jpg' },
+      { name: '컵 5', imagePath: '56.jpg' },
+      { name: '컵 6', imagePath: '57.jpg' },
+      { name: '컵 7', imagePath: '58.jpg' },
+      { name: '컵 8', imagePath: '59.jpg' },
+      { name: '컵 9', imagePath: '60.jpg' },
+      { name: '컵 10', imagePath: '61.jpg' },
+      { name: '에이스 펜타클', imagePath: '62.jpg' },
+      { name: '펜타클 2', imagePath: '63.jpg' },
+      { name: '펜타클 3', imagePath: '64.jpg' },
+      { name: '펜타클 4', imagePath: '65.jpg' },
+      { name: '펜타클 5', imagePath: '66.jpg' },
+      { name: '펜타클 6', imagePath: '67.jpg' },
+      { name: '펜타클 7', imagePath: '68.jpg' },
+      { name: '펜타클 8', imagePath: '69.jpg' },
+      { name: '펜타클 9', imagePath: '70.jpg' },
+      { name: '펜타클 10', imagePath: '71.jpg' },
+      { name: '바보', imagePath: '72.jpg' },
+      { name: '소드 페이지', imagePath: '73.jpg' },
+      { name: '완드 페이지', imagePath: '74.jpg' },
+      { name: '페이지 컵', imagePath: '75.jpg' },
+      { name: '페이지 펜타클', imagePath: '76.jpg' },
+      { name: '마법사', imagePath: '77.jpg' },
+      { name: '소드 기사', imagePath: '78.jpg' },
+      { name: '역방향 완드기사', imagePath: '79.jpg' },
+      { name: '역방향 컵기사', imagePath: '80.jpg' },
+      { name: '역방향 운명의 수레바퀴', imagePath: '81.jpg' },
+      { name: '역방향 정의', imagePath: '82.jpg' },
+      { name: '역방향 매달린 남자', imagePath: '83.jpg' },
+      { name: '역방향 죽음', imagePath: '84.jpg' },
+      { name: '역방향 절제', imagePath: '85.jpg' },
+      { name: '역방향 악마', imagePath: '86.jpg' },
+      { name: '역방향 탑', imagePath: '87.jpg' },
+      { name: '역방향 별', imagePath: '89.jpg' },
+      { name: '역방향 달', imagePath: '90.jpg' },
+      { name: '역방향 태양', imagePath: '91.jpg' },
+      { name: '역방향 심판', imagePath: '92.jpg' },
+      { name: '역방향 세계', imagePath: '93.jpg' },
+      { name: '역방향 에이스 소드', imagePath: '94.jpg' },
+      { name: '역방향 에이스 2', imagePath: '95.jpg' },
+      { name: '역방향 에이스 3', imagePath: '96.jpg' },
+      { name: '역방향 에이스 4', imagePath: '97.jpg' },
+      { name: '역방향 에이스 5', imagePath: '98.jpg' },
+      { name: '역방향 에이스 6', imagePath: '99.jpg' },
+      { name: '역방향 에이스 7', imagePath: '100.jpg' },
+      { name: '역방향 에이스 8', imagePath: '101.jpg' },
+      { name: '역방향 에이스 9', imagePath: '102.jpg' },
+      { name: '역방향 에이스 10', imagePath: '103.jpg' },
+      { name: '역방향 완드 에이스', imagePath: '104.jpg' },
+      { name: '역방향 완드 2', imagePath: '105.jpg' },
+      { name: '역방향 완드 3', imagePath: '106.jpg' },
+      { name: '역방향 완드 4', imagePath: '107.jpg' },
+      { name: '역방향 완드 5', imagePath: '108.jpg' },
+      { name: '역방향 완드 6', imagePath: '109.jpg' },
+      { name: '역방향 완드 7', imagePath: '110.jpg' },
+      { name: '역방향 완드 8', imagePath: '111.jpg' },
+      { name: '역방향 완드 9', imagePath: '112.jpg' },
+      { name: '역방향 완드 10', imagePath: '113.jpg' },
+      { name: '역방향 에이스 컵', imagePath: '114.jpg' },
+      { name: '역방향 컵 2', imagePath: '115.jpg' },
+      { name: '역방향 컵 3', imagePath: '116.jpg' },
+      { name: '역방향 컵 4', imagePath: '117.jpg' },
+      { name: '역방향 컵 5', imagePath: '118.jpg' },
+      { name: '역방향 컵 6', imagePath: '119.jpg' },
+      { name: '역방향 컵 7', imagePath: '120.jpg' },
+      { name: '역방향 컵 8', imagePath: '121.jpg' },
+      { name: '역방향 컵 9', imagePath: '122.jpg' },
+      { name: '역방향 컵 10', imagePath: '123.jpg' },
+      { name: '역방향 에이스 펜타클', imagePath: '124.jpg' },
+      { name: '역방향 펜타클 2', imagePath: '125.jpg' },
+      { name: '역방향 펜타클 3', imagePath: '126.jpg' },
+      { name: '역방향 펜타클 4', imagePath: '127.jpg' },
+      { name: '역방향 펜타클 5', imagePath: '128.jpg' },
+      { name: '역방향 펜타클 6', imagePath: '129.jpg' },
+      { name: '역방향 펜타클 7', imagePath: '130.jpg' },
+      { name: '역방향 펜타클 8', imagePath: '131.jpg' },
+      { name: '역방향 펜타클 9', imagePath: '132.jpg' },
+      { name: '역방향 펜타클 10', imagePath: '133.jpg' },
+      { name: '역방향 바보', imagePath: '134.jpg' },
+      { name: '역방향 소드페이지', imagePath: '135.jpg' },
+      { name: '역방향 완드페이지', imagePath: '136.jpg' },
+      { name: '역방향 페이지 컵', imagePath: '137.jpg' },
+      { name: '역방향 페이지 펜타클', imagePath: '138.jpg' },
+      { name: '역방향 마법사', imagePath: '139.jpg' },
+      { name: '역방향 소드기사', imagePath: '140.jpg' },
+      { name: '역방향 은둔자', imagePath: '141.jpg' },
+      { name: '역방향 힘', imagePath: '142.jpg' },
+      { name: '역방향 전차', imagePath: '143.jpg' },
+      { name: '역방향 연인', imagePath: '144.jpg' },
+      { name: '역방향 교황', imagePath: '145.jpg' },
+      { name: '역방향 황제', imagePath: '146.jpg' },
+      { name: '역방향 펜타클 킹', imagePath: '147.jpg' },
+      { name: '역방향 컵 킹', imagePath: '148.jpg' },
+      { name: '역방향 완드 퀸', imagePath: '149.jpg' },
+      { name: '역방향 소드 킹', imagePath: '150.jpg' },
+      { name: '역방향 여황제', imagePath: '151.jpg' },
+      { name: '역방향 펜타클 퀸', imagePath: '152.jpg' },
+      { name: '역방향 펜타클 기사', imagePath: '153.jpg' },
+      { name: '역방향 여사제', imagePath: '154.jpg' },
+      { name: '역방향 소드 퀸', imagePath: '155.jpg' },
+      { name: '역방향 완드 킹', imagePath: '156.jpg' },
+      { name: '역방향 컵 퀸', imagePath: '157.jpg' },
+    ];
+
+    function drawCardWithDetails(cardIndex) {
+  const cardContainer = document.getElementById('cardImages');
+  const cardData = cardsData[cardIndex];
+
+  // 카드 요소를 만듭니다.
+  const cardElement = document.createElement('div');
+  cardElement.className = 'card';
+
+  // 카드 이름
+  const cardName = document.createElement('div');
+  cardName.className = 'cardName';
+  cardName.textContent = cardData.name;
+
+  // 카드 이미지
+  const imageElement = document.createElement('img');
+  imageElement.src = `C:/Users/asas4/OneDrive/바탕 화면/JavaScript/타로/${cardData.imagePath}`;
+  imageElement.alt = cardData.name;
+
+  cardElement.appendChild(cardName);
+  cardElement.appendChild(imageElement);
+
+  // 카드를 컨테이너에 추가합니다.
+  cardContainer.appendChild(cardElement);
+}
+
+  
+
+    
+
+    function drawCards() {
+      const cardContainer = document.getElementById('cardImages');
+      cardContainer.innerHTML = ''; // Clear previous cards
+
+      const drawnCards = [];
+
+      for (let i = 0; i < numCardsToDraw; i++) {
+        let randomIndex;
+        do {
+          randomIndex = getRandomInt(0, cardsData.length - 1);
+        } while (drawnCards.includes(randomIndex));
+
+        drawnCards.push(randomIndex);
+
+        drawCardWithDetails(randomIndex);
+      }
+
+      // 버튼 숨기기
+      const button = document.querySelector('button');
+      button.style.display = 'none';
+    }
+
+    function getRandomInt(min, max) {
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
+  </script>
+</body>
+</html>
